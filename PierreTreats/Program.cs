@@ -24,7 +24,7 @@ namespace PierreTreats
                       );
       
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<RecipeBoxContext>()
+                .AddEntityFrameworkStores<PierreTreatsContext>()
                 .AddDefaultTokenProviders();
 
       builder.Services.Configure<IdentityOptions>(options =>
