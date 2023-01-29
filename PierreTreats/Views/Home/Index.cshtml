@@ -1,0 +1,18 @@
+@{
+  Layout="_Layout";
+}
+
+<h1>Welcome to Pierre's Treats</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+  <p>Hello @User.Identity.Name!</p>
+  <p>@Html.ActionLink("Flavors List", "Index", "Flavors")</p>
+  <p>@Html.ActionLink("Treats List", "Index", "Treats")</p>
+  <p>@Html.ActionLink("Manage Account", "Index", "Account")</p>
+  
+}
+else
+{
+  <p>Please Log In or Register an account to continue.</p>
+}
