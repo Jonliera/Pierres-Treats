@@ -27,7 +27,9 @@ namespace PierreTreats.Controllers
     {
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Treat> userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      List<Treat> userTreats = _db.Treats
+                                  .Where(entry => entry.User.Id == currentUser.Id)
+                                  .ToList();
       return View(userTreats);
     }
     public ActionResult Create()
@@ -38,7 +40,7 @@ namespace PierreTreats.Controllers
     [HttpPost]
     public async Task<ActionResult> Create(Treat treat)
     {
-      if (ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
         return View(treat);
       }
@@ -89,13 +91,10 @@ namespace PierreTreats.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    public async  Task <ActionResult> AddFlavor(int id)
+    public ActionResult AddFlavor(int id)
     {
-      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Flavor> userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(userFlavors, "FlavorId", "Name");
+      Treat thisTreat = _db.Treats.FirstOrDefault(treats => treats.TreatId == id);
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "FlavorType");
       return View(thisTreat);
     }
 
@@ -103,7 +102,7 @@ namespace PierreTreats.Controllers
     public ActionResult AddFlavor(Treat treat, int flavorId)
    {
     #nullable enable
-    TreatFlavor? joinEntity = _db.TreatFlavors.FirstOrDefault(join => join.FlavorId == flavorId && join.TreatId == treat.TreatId);
+    TreatFlavor? joinEntity = _db.TreatFlavors.FirstOrDefault(join => (join.FlavorId == flavorId && join.TreatId == treat.TreatId));
     #nullable disable
     if (joinEntity == null && flavorId != 0)
     {

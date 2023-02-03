@@ -6,11 +6,11 @@
 
 <h2>Add a Treat</h2>
 
-<h3>Add a Treat to this Flavor : @Html.DisplayFor(model => Model.Name)</h3>
+<h3>Add a Treat to this Flavor : @Html.DisplayFor(model => model.FlavorType)</h3>
 
 @using(Html.BeginForm())
 {
-  @Html.HiddenFor(model => Model.FlavorId)
+  @Html.HiddenFor(model => model.FlavorId)
 
   @Html.Label("Select a Treat")
   @Html.DropDownList("TreatId")

@@ -31,7 +31,7 @@ namespace PierreTreats.Controllers
     [HttpPost]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {
-      if (ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
         return View(model);
       }
@@ -63,7 +63,7 @@ namespace PierreTreats.Controllers
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel model)
     {
-      if (ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
         return View(model);
       }
@@ -86,7 +86,7 @@ namespace PierreTreats.Controllers
     public async Task<ActionResult> LogOff()
     {
       await _signInManager.SignOutAsync();
-      return RedirectToAction("Index", "Home");
+      return RedirectToAction("Index");
     }
   }
 }

@@ -1,33 +1,35 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    @* <meta name="viewpoint" content="width=device-width, initial-scale=1.0" charset="utf-8"> *@
     <!-- ^^^^ this line of code helps when it comes to changes of screen type ^^^^ -->
-    <title>Pierre's Treata</title>
+    <title>Pierre's Treats</title>
     <link 
       rel="stylesheet" 
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
       crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    @* <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,200;1,100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,200;1,100&display=swap" rel="stylesheet"> *@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body>
-    <div class="container">
+    @* <div class="container">
       <div class="outside">
         <div class="first_inner_div">
-          <div class="second_inner_div">
+          <div class="second_inner_div"> *@
+          
+          <div class="container">
           @RenderBody()
           </div>
+          @* </div>
         </div>
       </div>
-    </div>
+    </div> *@
 
-    <div class="container">
+    @* <div class="container">
       <div class="outer_navigation_bar">
         <div class="navigation_bar">
           <header>:]</header>
@@ -50,6 +52,6 @@
           } 
         </div>
       </div>
-    </div>
+    </div> *@
   </body>
 </html>

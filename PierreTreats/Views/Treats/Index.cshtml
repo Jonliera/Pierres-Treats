@@ -15,10 +15,9 @@ else
   <ul>
     @foreach (Treat treat in @Model)
     {
-      <li>@Html.ActionLink($"{treat.Name}", "Details", new{ id =treat.TreatId})</li>
+      <li>@Html.ActionLink($"{treat.TreatType}", "Details", new{ id = treat.TreatId})</li>
     }  
   </ul>
 }
 
-<p>@Html.ActionLink("Back to Flavors List", "Index")</p>
-<p>@Html.ActionLink("Treats List", "Index", "Treats")</p>
+<p>@Html.ActionLink("Adda  new Treat", "Create") | @Html.ActionLink("Home", "Index", "Home")</p>

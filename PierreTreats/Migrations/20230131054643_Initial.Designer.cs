@@ -11,7 +11,7 @@ using PierreTreats.Models;
 namespace PierreTreats.Migrations
 {
     [DbContext(typeof(PierreTreatsContext))]
-    [Migration("20230128222623_Initial")]
+    [Migration("20230131054643_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -219,7 +219,8 @@ namespace PierreTreats.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FlavorType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
@@ -238,7 +239,12 @@ namespace PierreTreats.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("TreatName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TreatType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")

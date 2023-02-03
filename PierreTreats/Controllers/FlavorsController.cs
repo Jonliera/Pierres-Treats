@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using PierreTreats.Models;
 using System.Collections.Generic;
@@ -5,9 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace PierreTreats.Controllers
 {
@@ -26,7 +27,9 @@ namespace PierreTreats.Controllers
     {
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Flavor> userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      List<Flavor> userFlavors = _db.Flavors
+                      .Where(entry => entry.User.Id == currentUser.Id)
+                      .ToList();
       return View(userFlavors);
     }
     public ActionResult Create()
@@ -36,7 +39,7 @@ namespace PierreTreats.Controllers
     [HttpPost]
     public async Task<ActionResult> Create(Flavor flavor)
     {
-      if (ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
         return View(flavor);
       }
@@ -83,28 +86,21 @@ namespace PierreTreats.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    public async Task<ActionResult> AddTreat(int id)
+    public ActionResult AddTreat(int id)
     {
-      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Treat> userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id)
-      .Include(flavor => flavor.JoinEntities)
-      .ToList();
-      
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatType");
       return View(thisFlavor);
     }
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int treatId)
     {
       #nullable enable
-      TreatFlavor? joinEntity = _db.TreatFlavors.FirstOrDefault(join => join.TreatId == treatId && join.FlavorId == flavor.FlavorId);
+      TreatFlavor? joinEntity = _db.TreatFlavors.FirstOrDefault(join => (join.TreatId == treatId && join.FlavorId == flavor.FlavorId));
       #nullable disable
       if (joinEntity == null && treatId != 0)
       {
         _db.TreatFlavors.Add(new TreatFlavor() { TreatId = treatId, FlavorId = flavor.FlavorId });
-        
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = flavor.FlavorId });

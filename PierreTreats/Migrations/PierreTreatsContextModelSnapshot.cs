@@ -217,7 +217,8 @@ namespace PierreTreats.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FlavorType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
@@ -236,7 +237,12 @@ namespace PierreTreats.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("TreatName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TreatType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
